@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ex 5</title>
+    <style type="text/css">
+        * {
+			color: #011627;
+            background-color: #f5f5f5;
+            text-align: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+    </style>
+</head>
+
+<body>
+    <h1>this one uses fetch</h1>
+    <h2 id="fio" style="color: #8980f5;"></h2>
+
+    <script>
+        let request = new XMLHttpRequest();
+        fetch('/api/name').then (res=> {
+                res.text().then(text=>{
+                document.getElementById('fio').innerHTML = text;
+            });
+        });
+    </script>
+</body>
+</html>

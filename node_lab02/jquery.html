@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <title>ex 6</title>
+    <style type="text/css">
+        * {
+			color: #011627;
+            background-color: #f5f5f5;
+            text-align: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+    </style>
+</head>
+
+<body>
+    <h1>this one uses jquery</h1>
+    <h2 id="fio" style="color: #8980f5;"></h2>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            method: 'GET',
+            url: '/api/name',
+            success: (data) => {
+                $('#fio').append(data);
+            }
+        });
+    </script>
+</body>
+</html>
