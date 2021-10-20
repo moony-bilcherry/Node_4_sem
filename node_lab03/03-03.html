@@ -10,6 +10,9 @@
             text-align: center;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 		}
+        #result {
+            text-align: left;
+        }
 	</style>
 </head>
 <body>
@@ -30,7 +33,7 @@
 			})
             .then(response => { return response.json(); })
             .then((data) => {
-				result.innerHTML += (num++) + '. Результат: ' + (Date.now() - time) + '-' + data.k + '/' + data.fact + '<br>';
+				result.innerHTML += '[ ' + (num++) + ' ] Результат: ' + (Date.now() - time) + ' - ' + data.k + ' / ' + data.fact + '<br>';
 			});
 		}
     </script>

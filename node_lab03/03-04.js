@@ -4,13 +4,22 @@ const url = require('url');
 
 let fact = (num) => { return num < 2 ? 1 : num * fact(num - 1); }
 
+function Fact(n, cb) {
+    this.fn = n;
+    this.ffact = fact;
+    this.fcb = cb;
+    this.calc =() => {process.nextTick(() => {this.fcb(null, this.ffact(this.fn));});}
+}
+
 http.createServer(function (request, response) {
 	if(url.parse(request.url).pathname === '/fact') {
         if (url.parse(request.url, true).query.k !== null) {
             let k = +url.parse(request.url, true).query.k;
             if (Number.isInteger(k)) {
                 response.writeHead(200, {'Content-Type' : 'application/json'});
-                response.end(JSON.stringify({ k: k , fact: fact(k) }));
+                let fact = new Fact(k, (err, result) => 
+                    { response.end(JSON.stringify( { k:k, fact: result })); })
+                fact.calc();
             }
         }
         if(url.parse(request.url, true).query.k === undefined) {
