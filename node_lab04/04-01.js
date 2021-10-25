@@ -31,7 +31,6 @@ db.on('PUT', (request, response) => {
 
 db.on('DELETE', (request, response) => {
 	console.log('DELETE called');
-	let id = url.parse(request.url, true).query.id;
 	if(url.parse(request.url, true).query.id === undefined) {
 		response.end('{"ERROR": "parameter not provided"}');
 	}
