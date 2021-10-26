@@ -8,8 +8,12 @@ let db = new data.DB();
 let countRequest = 0;
 let countCommit = 0;
 
-let timerSd = 0;
-let timerSc = 0;
+let timerSd = null;
+let timerSc = null;
+let timerSs = null;
+
+let startTime = null;
+let endTime = null;
 
 // слушатели событий
 
@@ -68,17 +72,15 @@ let server = http.createServer(function (request, response) {
         response.writeHead(200, {'Content-Type' : 'text/html; charset=utf-8'});
         response.end(html)
     }
+	if (request.url === '/api/ss') {
+        response.writeHead(200, {'Content-Type':'application/json'});
+        response.end(JSON.stringify(getStats()));
+    }
 }).listen(5000);
 
-let close = (callback) => {
-    for (const socket of sockets) {
-        socket.destroy();
-        sockets.delete(socket);
-    }
-    console.log('All connections closed');
-    server.close(callback);
-    console.log('Server terminated');
-};
+function getStats() {
+	return { start: startTime, end: endTime, requests: countRequest, commits: countCommit };
+}
 
 process.stdin.setEncoding('utf8');
 process.stdin.on('readable', () => {
@@ -89,7 +91,10 @@ process.stdin.on('readable', () => {
 				let sec = Number(command.trim().replace(/[^\d]/g, ''));
 				if(sec) {
 					clearTimeout(timerSd);
-					timerSd = setTimeout(() =>  server.close(), sec * 1000);
+					timerSd = setTimeout(() =>  { 
+						server.close()
+						process.exit(0);
+					}, sec * 1000);
 					console.log(`Server will close in ${sec} sec`);
 				}
 				if(!sec && command.trim().length > 2) {
@@ -97,7 +102,7 @@ process.stdin.on('readable', () => {
 				}
 				if(command.trim().length === 2) {
 					clearTimeout(timerSd);
-					console.log('Undo server.close()');
+					console.log('SD canceled');
 				}
 			}
 			else {
@@ -113,14 +118,33 @@ process.stdin.on('readable', () => {
               	timerSc.unref();
           	}
           	if(!sec && command.trim().length > 2) {
-              	console.error("ERROR! Parameter isn\'t int");
+              	console.error("ERROR: parameter not integer");
           	}
           	if(command.trim().length === 2) {
               	clearTimeout(timerSc);
-              	console.log('Undo commit()');
+              	console.log('SC canceled');
           	}
       	}
-		  
+		
+		if (command.trim().startsWith('ss')) {
+            let sec = Number(command.trim().replace(/[^\d]/g, ''));
+            if(sec) {
+                clearTimeout(timerSs);
+				startTime = new Date();
+                timerSs = setTimeout( () => { 
+					endTime = new Date();
+					process.stdout.write(JSON.stringify(getStats())); 
+				}, sec * 1000);
+                timerSs.unref();
+            }
+            if(!sec && command.trim().length > 2) {
+                console.error("ERROR: parameter not integer");
+            }
+            if(command.trim().length === 2) {
+                clearTimeout(timerSs);
+                console.log('SS canceled');
+            }
+      	}
 	}
 });
 
