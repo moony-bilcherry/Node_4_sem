@@ -15,6 +15,8 @@ let timerSs = null;
 let startTime = null;
 let endTime = null;
 
+process.stdin.unref();
+
 // слушатели событий
 
 db.on('GET', (request, response) => {
@@ -90,12 +92,12 @@ process.stdin.on('readable', () => {
           	if(server.listening) {
 				let sec = Number(command.trim().replace(/[^\d]/g, ''));
 				if(sec) {
+					console.log(`Server will close in ${sec} sec`);
 					clearTimeout(timerSd);
 					timerSd = setTimeout(() =>  { 
-						server.close()
-						process.exit(0);
+						server.close(() => { console.log('SERVER CLOSED'); });
+						
 					}, sec * 1000);
-					console.log(`Server will close in ${sec} sec`);
 				}
 				if(!sec && command.trim().length > 2) {
 					console.error("ERROR: parameter not integer");
