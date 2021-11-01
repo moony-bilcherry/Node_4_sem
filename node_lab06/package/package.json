@@ -1,0 +1,23 @@
+{
+  "name": "@moony_bilcherry/m0603",
+  "version": "1.0.0",
+  "description": "task 06-04: a function to send messages between specified emails",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moony-bilcherry/Node_5_sem.git"
+  },
+  "keywords": [
+    "m0603",
+    "belstu"
+  ],
+  "author": "moony",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moony-bilcherry/Node_5_sem/issues"
+  },
+  "homepage": "https://github.com/moony-bilcherry/Node_5_sem#readme"
+}
