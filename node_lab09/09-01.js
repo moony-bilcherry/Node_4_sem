@@ -1,10 +1,12 @@
 const http = require('http');
+
 let options = {
     host: 'localhost',
     path: '/0901',
     port: 5000,
     method: 'GET'
 }
+
 const req = http.request(options, (res) => {
     console.log(`req.method = ${req.method}`);
     console.log(`res.response (statusCode) = ${res.statusCode}`);

@@ -16,6 +16,7 @@ let http_handler = (req, res) => {
             res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
             res.end(`<h2>KeepAliveTimeout was updated, new value = ${server.keepAliveTimeout}</h2>`);
         }
+        req.connection.on('close', function(err) { console.log('KeepAliveTimeout has ran out, connection was closed :]'); });
     }
 
     if(req.method === 'GET' && url.parse(req.url).pathname === '/headers') {
