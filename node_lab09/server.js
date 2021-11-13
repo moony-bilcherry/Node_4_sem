@@ -1,8 +1,10 @@
 const http = require('http');
+const fs = require("fs");
 const url = require('url');
 const querystring = require("querystring");
 const parseString = require('xml2js').parseString;
 const xmlBuilder = require('xmlbuilder');
+const mp = require("multiparty");
 
 let http_handler = (req, res) => {
     if(req.method === 'GET' && url.parse(req.url).pathname === '/0901') {
@@ -42,6 +44,7 @@ let http_handler = (req, res) => {
             res.end(JSON.stringify(result));
         })
     }
+
     if(req.method === 'POST' && url.parse(req.url).pathname === '/0905') {
         let xmlString = '';
         req.on('data', data => { xmlString += data.toString(); });
@@ -69,6 +72,40 @@ let http_handler = (req, res) => {
                 res.end(xmlDoc.toString({ pretty: true }));
             });
         })
+    }
+
+    if(req.method === 'POST' && url.parse(req.url).pathname === '/09067') {
+        let result = '';
+		let form = new mp.Form({ uploadDir:'./static' });
+        form.parse(req);
+		form.on('field',(name, field)=>{
+			console.log('---- got a field:');
+			console.log(name, field);
+			result += `<br/>${name} = ${field}`;
+		});
+		form.on('file', (name, file)=>{
+			console.log('---- got a file:');
+			console.log(name, file);
+			result += `<br/>${name} = original name: ${file.originalFilename}; path: ${file.path}`;
+		});
+        form.on("error", (err) => {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end("<h2>form error</h2>");
+        });
+        form.on("close", () => {
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.write("<h2>success! form data:</h2>");
+            res.end(result);
+        });
+    }
+
+    if(req.method === 'GET' && RegExp(/^\/0908\/[a-zA-Z1-9]+/).test(url.parse(req.url).pathname)) {
+        try {
+            res.end(fs.readFileSync('static/' + url.parse(req.url, true).pathname.split('/')[2]));
+        } catch (err) {
+            res.writeHead(404, {'Content-type': 'text/html'});
+            res.end('404 ' + err.toString());
+        }
     }
 }
 
