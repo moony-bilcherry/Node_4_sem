@@ -37,7 +37,7 @@ let http_handler = (req, res) => {
             res.writeHead(200, {'Content-Type' : 'application/json; charset=utf-8'});
             data = JSON.parse(data);
             let result = {};
-            result.__comment = "response: lab 08-10";
+            result.__comment = "response: lab 09-04";
             result.x_plus_y = data.x + data.y;
             result.concat_s_and_o = `${data.s}: ${data.o.name} ${data.o.surname}`;
             result.length_m = data.m.length;

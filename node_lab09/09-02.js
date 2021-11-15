@@ -1,7 +1,8 @@
 const http = require('http');
 const query = require('querystring');
 
-let params = query.stringify({ x: 1, y: 2 });
+let params = query.stringify({ x: 9, y: 2 });
+console.log(`parameters: ${params}`);
 
 let options = {
     host: 'localhost',

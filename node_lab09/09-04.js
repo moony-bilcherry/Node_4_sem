@@ -2,7 +2,7 @@ const http = require('http');
 
 let jsonParm = JSON.stringify(
     {
-        "__comment": "request: lab 08-10",
+        "__comment": "request: lab 09-04",
         "x": 9,
         "y": 4,
         "s": "some message",
