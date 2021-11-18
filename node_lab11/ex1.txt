@@ -1,0 +1,1 @@
+ya dolzhen zagruzhat'sya v ./upload
