@@ -22,16 +22,15 @@ let k = 0;
 let wsServer = new ws.Server({ port: 4000, host:'localhost', path:'/' })
 wsServer.on('connection', (ws) => {
     let n = 0;
+    console.log('NEW CLIENT CONNECTED');
     setInterval(() => {
-        ++k;
-        ws.send(`10-01 Server: ${n}->${k}`);
+        ws.send(`10-01 Server: ${n}->${++k}`);
     }, 5000);
     ws.on('message', (m) => {
         console.log(`received message => ${m}`);
         n = Number.parseInt(m.toString().split(":")[1]);
         console.log("n:", n);
     });
-    setInterval(() => { ws.send(`server: ${++k}`)}, 1500);
 })
 wsServer.on('error', (e) => { console.log('ws server error', e); });
 console.log(`WS server: host: ${wsServer.options.host}, post: ${wsServer.options.port}, path: ${wsServer.options.path}`);
