@@ -1,0 +1,5 @@
+﻿  ClientT.cpp
+T:\Uni\5_sem\Node_PSKP\Node.js_labs\node_lab13\TCP_cpp\ClientT\ClientT\ClientT.cpp(41,12): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+T:\Uni\5_sem\Node_PSKP\Node.js_labs\node_lab13\TCP_cpp\ClientT\ClientT\ClientT.cpp(50,12): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+T:\Uni\5_sem\Node_PSKP\Node.js_labs\node_lab13\TCP_cpp\ClientT\ClientT\ClientT.cpp(37,13): warning C4101: messageAmount: неиспользованная локальная переменная
+  ClientT.vcxproj -> T:\Uni\5_sem\Node_PSKP\Node.js_labs\node_lab13\TCP_cpp\ClientT\x64\Debug\ClientT.exe

@@ -1,0 +1,4 @@
+﻿  ClientU.cpp
+T:\Uni\5_sem\Node_PSKP\Node.js_labs\node_lab13\UDP_cpp\ClientU\ClientU\ClientU.cpp(34,24): warning C4101: end: неиспользованная локальная переменная
+T:\Uni\5_sem\Node_PSKP\Node.js_labs\node_lab13\UDP_cpp\ClientU\ClientU\ClientU.cpp(34,17): warning C4101: start: неиспользованная локальная переменная
+  ClientU.vcxproj -> T:\Uni\5_sem\Node_PSKP\Node.js_labs\node_lab13\UDP_cpp\ClientU\Debug\ClientU.exe
