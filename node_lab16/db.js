@@ -73,14 +73,6 @@ function DB (cb) {
             });
     };
 
-    /* 
-    delFaculty: async (args, context) => {
-        let deletedFaculty = (await context.getFaculty(args, context))[0];
-        let res = await context.delFaculty(args, context);
-        return (res == null) ? res : deletedFaculty;
-        }, 
-    */
-
     this.delPulpit = (args, context) => {
         return (new mssql.Request())
             .input('p', mssql.NVarChar, args.PULPIT)

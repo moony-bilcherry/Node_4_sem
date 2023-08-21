@@ -15,6 +15,7 @@ const resolver = {
         return  (args.TEACHER) ? context.getTeacher(args, context) : context.getTeachers(args, context);
     },
 
+    // попробуй ловить ошибку в db.js
     setFaculty: async (args, context) => {
         let res = await context.updateFaculty(args, context);
         return (res == null) ? context.insertFaculty(args, context) : res;
@@ -40,9 +41,25 @@ const resolver = {
         let res = await context.delFaculty(args, context);
         return (res == null) ? res : deletedFaculty;
     },
-    delPulpit: (args, context) => context.delPulpit(args, context),
-    delSubject: (args, context) => context.delSubject(args, context),
-    delTeacher: (args, context) => context.delTeacher(args, context),
+
+    delPulpit: async (args, context) => {
+        let deletedPulpit = (await context.getPulpit(args, context))[0];
+        let res = await context.delPulpit(args, context);
+        return (res == null) ? res : deletedPulpit;
+    },
+
+    delSubject: async (args, context) => {
+        let deletedSubject = (await context.getSubject(args, context))[0];
+        let res = await context.delSubject(args, context);
+        return (res == null) ? res : deletedSubject;
+    },
+
+    delTeacher: async (args, context) => {
+        let deletedTeacher = (await context.getTeacher(args, context))[0];
+        let res = await context.delTeacher(args, context);
+        return (res == null) ? res : deletedTeacher;
+    },
+
     getTeachersByFaculty: (args, context) => context.getTeachersByFaculty(args, context),
     getSubjectsByFaculties: (args, context) => context.getSubjectsByFaculties(args, context)
 };

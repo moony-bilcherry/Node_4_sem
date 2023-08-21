@@ -1,3 +1,13 @@
+isJson = (headers, header, mime) => {
+	let rc = false;
+	let h = headers[header];
+	if(h) rc = f.indexOf(mime) >=0;
+	return rc;
+}
+
+exports.isJsonContentType = (hs) => isJson(hs, 'content-type', 'application/json');
+exports.isJsonAccept = (hs) => isJson(hs, 'accept', 'application/json');
+
 const Error400 = (response, smess) => {
     console.log(smess);
     response.writeHead(400, {'Content-Type':'application/json; charset=utf-8'});
